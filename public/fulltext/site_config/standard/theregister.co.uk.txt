@@ -1,0 +1,9 @@
+# Updated 07-Apr-2013
+single_page_link: //a[contains(@href, 'print.html')]
+
+title: //div[@id="article"]/h2
+author: //p[@class="byline"]/a
+body: //div[@id="article"]/div[@id="body"]
+strip: //hr[@class="PageBreak"]
+
+test_url: http://www.theregister.co.uk/2013/03/19/review_sony_xperia_z_flagship_android_smartphone/

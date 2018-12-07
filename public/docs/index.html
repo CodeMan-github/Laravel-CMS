@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <title>RSS AGGREGATOR</title>
+
+    <meta name="description" content="Documentation of RSS AGGREGATOR">
+    <meta name="keywords" content="RSS AGGREGATOR, codecanyon, documentation, kodeinfo">
+
+    <meta name="author" content="kodeinfo">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- Icons -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/plugins.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Scripts -->
+    <script src="js/vendor/modernizr.min.js"></script>
+</head>
+
+<body>
+<!-- Page Container -->
+<div id="container">
+    <!-- Header -->
+    <header class="cf">
+        <a href="" id="header-logo">RSS AGGREGATOR</a>
+
+        <div id="header-version"><span class="text-bold">1.0</span> | August 5th, 2015</div>
+    </header>
+    <!-- END Header -->
+
+    <!-- Container for navigation and content -->
+    <div id="main-container" class="cf">
+        <!-- Navigation -->
+        <nav id="main-nav"></nav>
+
+        <!-- Main Content -->
+        <div id="main">
+            <p class="author-comment">Thank you for purchasing my item. If you have any questions that are beyond the
+                scope of this documentation, please feel free to email via <a
+                        href="http://codecanyon.net/user/kodeinfo">my user page contact form</a>. <strong>Thanks so
+                    much!</strong></p>
+
+
+            <h1>Installation</h1>
+
+            <h4>Shared Hosting :</h4>
+            <ul class="icons">
+
+                <li>
+                    <i class="icon-ok"></i><strong>CPanel and FTP</strong><br>
+                    <p>You need to have CPANEL and FTP access to install on shared hosting . Create a new FTP account or if you have existing download filezilla config file , install <a href="https://filezilla-project.org/download.php?type=client" target="_blank">Filezilla</a> and import new config and connect to server using filezilla , now upload all files into your website folder and open cpanel</p>
+                </li>
+
+                <li>
+                    <i class="icon-ok"></i><strong>Permissions</strong><br>
+                    <p>Now open filezilla and give recursive 775 permissions to .env , storage , bootstrap and public/uploads folder , Make sure to click recursive when you set permissions </p>
+                </li>
+
+                <li>
+                    <i class="icon-ok"></i><strong>Database </strong><br>
+                    <p>After opening cpanel go to mysql databases and create new database , then create new user , then from mysql databases screen connect user and database and grant all permissions . Now visit /install on your server and continue installation </p>
+                </li>
+
+                <li>
+                    <i class="icon-ok"></i><strong>Check your PHP version</strong><br>
+                    <p>You will need to have PHP version 5.5 or above , so check it with your hosting provider , Some hosting providers allow to change version from cpanel so select 'Select PHP Version' from CPANEL and set it to 5.5 or above </p>
+                </li>
+
+            </ul>
+
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/SOm8c-KOuS4" frameborder="0" allowfullscreen></iframe>
+
+            <h4>Cloud Hosting (DigitalOcean) :</h4>
+            <ul class="icons">
+
+                <li>
+                    <i class="icon-ok"></i><strong>Create a new droplet and upload files</strong><br>
+                    <p>Click on create new droplet and select LAMP from applications tab ,  now upload all files to your droplets folder (/var/www/html) through filezilla</p>
+                </li>
+
+                <li>
+                    <i class="icon-ok"></i><strong>Connect to droplet through SSH (Putty) </strong><br>
+                    <p>Now connect to droplet through putty and run below commands</p>
+                    <p><code>chgrp -R www-data /var/www/html</code></p>
+                    <p><code>chmod -R 775 /var/www/html/.env</code></p>
+                    <p><code>chmod -R 775 /var/www/html/storage</code></p>
+                    <p><code>chmod -R 775 /var/www/html/bootstrap</code></p>
+                    <p><code>chmod -R 775 /var/www/html/public/uploads</code></p>
+                </li>
+
+                <li>
+                    <i class="icon-ok"></i><strong>Database </strong><br>
+                    <p>When you connect to droplet through Putty you will see a message on top which will include mysql password , so now lets connect to mysql and create database and dump demo sql</p>
+                    <p><code>mysql -u root -p;</code></p>
+                    <p><code>create database rss;</code></p>
+                </li>
+
+                <li>
+                    <i class="icon-ok"></i><strong>Enable Modules </strong><br>
+                    <p>Run below command to enable mod_rewrite module</p>
+                    <p><code>sudo a2enmod rewrite</code></p>
+
+                    Now open 000-default.conf
+
+                    <p><code>sudo nano /etc/apache2/sites-available/000-default.conf</code></p>
+
+                    Add below lines below
+
+                    <p><code>
+                        &lt;Directory &quot;/var/www/html&quot;&gt;
+                        AllowOverride all
+                        &lt;/Directory&gt;
+                    </code></p>
+
+                    Now restart apache2 server
+                    <p><code>sudo service apache2 restart</code></p>
+                </li>
+
+                <li>Visit /install on your server and continue installation</li>
+
+            </ul>
+
+            <h1>Admin Features</h1>
+            <ul class="icons">
+                <li>
+                    <i class="icon-ok"></i><strong>Built on Laravel Framework </strong><br>
+                    Laravel is one of the most popular framework at the moment and is full of features. It is easy to
+                    use and it offers a large variety of packages using composer .
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Add users</strong><br>
+                    You can add , edit and delete the administrators
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Categories and Sub Categories</strong><br>
+                    You can create categories and sub categories , sometimes all categories do not fit in header you
+                    have the option to display categories in header , sidebar and footer and can even hide from each
+                    place . You can also set seo keywords and description for each category / sub category
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Sources</strong><br>
+                    You can connect source to any sub category and all rss feeds will be pulled and saved in our
+                    database , You can even setup cron job to automatically pull new posts from sources every X hrs ,
+                    you even have a option to preview source before adding to sub category
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Posts</strong><br>
+                    In this section all posts which are manual or connected to any source will be displayed , you can
+                    change post type to TEXT , IMAGE , GALLERY or VIDEO . We have also added parallax effect for IMAGE
+                    and GALLERY posts . You can also add rating box so users can rate a post . If you dont want to
+                    display post set its status to INVISIBLE , other options include showing featured image above post
+                    description , showing post inside mega menu of header
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Ads Section</strong><br>
+                    We have added every possible ad section a user will ever want . On homepage you can add ads on the
+                    top or in the bottom , You can add ads in sidebar , You can add ads between pages like tags , search
+                    , categories or sub categories , can even add ads on top or bottom of each posts
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Statistics / Google Analytics</strong><br>
+                    Now you dont need go to google analytics to check basics stats , you can add your app client id
+                    inside .env file and analytics will be available for you in this section
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Settings </strong><br>
+                    We have tons of configuration here , you can control site wide settings . You can set site url ,
+                    title , upload logos , set google analytics , mailchimp form , should sources be included in rss
+                    feeds if site generate feeds , Google/Bing webmaster verify , can select type of commenting system
+                    to use , set facebook box , set twitter box , set social links of header and lot of other options
+                </li>
+
+            </ul>
+
+            <h1>Site Features</h1>
+            <ul class="icons">
+
+                <li>
+                    <i class="icon-ok"></i><strong>Flex Slider for Featured Posts</strong><br>
+                    Smooth and sleek flex slider for your featured posts.
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Videos Section</strong><br>
+                    We have section for all video posts
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong> Ratings Section</strong><br>
+                    This section displays all posts with rating boxes
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Mega Menu</strong><br>
+                    You can display posts inside mega menu
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Social</strong><br>
+                    Integrated with Facebook Box , twitter tweets box , Facebook comments , Disqus comments systems .
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Tags and Categories</strong><br>
+                    Manage posts inside categories and tags for easy management .
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Powerful Search Engine</strong><br>
+                    Integrated with Full fledged search system .
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>20+ Ads Sections</strong><br>
+                    You have 20+ ads sections for settings ads and earning through your website
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>SEO Friendly</strong><br>
+                    All proper meta tags are used for seo and can be easily set from settings panel
+                </li>
+
+            </ul>
+
+            <h1>Setting Cron Job</h1>
+
+            <p>For sources to auto update you need to set cron job on server , so SSH into server and run below
+                commands</p>
+
+            <p><code>sudo crontab -e</code></p>
+
+            <p>Now add one of the below line at the end of file as per your choice</p>
+            <p><code>* * * * * /usr/bin/php /var/www/html/artisan update-sources</code> for running cron job every minute</p>
+            <p><code>0 * * * * /usr/bin/php /var/www/html/artisan update-sources</code> for running cron job every hour</p>
+            <p>Make sure to replace the php path and your web root path in above commands</p>
+
+            <h1>Setting up Mail</h1>
+
+            <h3>SMTP METHOD :</h3>
+
+            <p>You just have to change settings inside .env to make smtp work</p>
+
+            <h3>MAILGUN :</h3>
+
+            <p>Set mail settings in <code>.env</code> and set mailgun domain and secret inside
+                <code>config/services.php</code></p>
+
+
+            <h1>Language and Timezone</h1>
+            <p>You can change locale and timezone from settings . </p>
+            <ul>
+                <li> <code>/resources/lang/ar</code> for Arabic </li>
+                <li> <code>/resources/lang/az</code> for Azerbaijan </li>
+                <li> <code>/resources/lang/bg</code> for Bulgarian </li>
+                <li> <code>/resources/lang/bn</code> for Bengali </li>
+                <li> <code>/resources/lang/ca</code> for Catalan </li>
+                <li> <code>/resources/lang/cs</code> for Czech </li>
+                <li> <code>/resources/lang/da</code> for Danish </li>
+                <li> <code>/resources/lang/nl</code> for Dutch </li>
+                <li> <code>/resources/lang/en</code> for English </li>
+                <li> <code>/resources/lang/eo</code> for Esperanto </li>
+                <li> <code>/resources/lang/fi</code> for Finnish </li>
+                <li> <code>/resources/lang/fr</code> for French </li>
+                <li> <code>/resources/lang/fo</code> for Faroese </li>
+                <li> <code>/resources/lang/de</code> for German </li>
+                <li> <code>/resources/lang/el</code> for Greek </li>
+                <li> <code>/resources/lang/hr</code> for Hebrew </li>
+                <li> <code>/resources/lang/hu</code> for Hungarian </li>
+                <li> <code>/resources/lang/id</code> for Indonesian </li>
+                <li> <code>/resources/lang/it</code> for Italian </li>
+                <li> <code>/resources/lang/ja</code> for Japanese </li>
+                <li> <code>/resources/lang/ko</code> for Korean </li>
+                <li> <code>/resources/lang/lv</code> for Latvian </li>
+                <li> <code>/resources/lang/lt</code> for Lithuanian </li>
+                <li> <code>/resources/lang/ms</code> for Malay </li>
+                <li> <code>/resources/lang/no</code> for Norwegian </li>
+                <li> <code>/resources/lang/pl</code> for Polish </li>
+                <li> <code>/resources/lang/pt_BR</code> for Portuguese </li>
+                <li> <code>/resources/lang/fa</code> for Persian </li>
+                <li> <code>/resources/lang/ro</code> for Romanian </li>
+                <li> <code>/resources/lang/ru</code> for Russian </li>
+                <li> <code>/resources/lang/sr</code> for Serbian </li>
+                <li> <code>/resources/lang/sk</code> for Slovak </li>
+                <li> <code>/resources/lang/sl</code> for Slovenian </li>
+                <li> <code>/resources/lang/es</code> for Spanish </li>
+                <li> <code>/resources/lang/sv</code> for Swedish </li>
+                <li> <code>/resources/lang/th</code> for Thai </li>
+                <li> <code>/resources/lang/tr</code> for Turkish </li>
+                <li> <code>/resources/lang/uk</code> for Ukrainian </li>
+                <li> <code>/resources/lang/uz</code> for Uzbek </li>
+                <li> <code>/resources/lang/vi</code> for Vietnamese </li>
+            </ul>
+
+            <p>To change to language which is not in the above list clone <code>/resources/lang/en</code> directory and rename it to two digit language code <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">click here for language codes , now you can edit content inside it </a></p>
+
+            <h1>Enabling Statistics</h1>
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/FFa_CCs4FIY" frameborder="0" allowfullscreen></iframe>
+
+            <h1>Installing Updates</h1>
+            <p>To install updates just replace all folders except uploads on your server and follow below steps , also check your language files after update for new messages .</p>
+
+            <p>After uploading new files make sure </p>
+            <ul class="icons">
+
+                <li>
+                    <i class="icon-ok"></i><strong>If you have SSH Access</strong><br>
+                   If you have SSH access then ssh to your project directory and set 775 permission to below folders
+                    <p><code>chgrp -R www-data /var/www/html</code></p>
+                    <p><code>chmod -R 775 /var/www/html/.env</code></p>
+                    <p><code>chmod -R 775 /var/www/html/storage</code></p>
+                    <p><code>chmod -R 775 /var/www/html/bootstrap</code></p>
+                    <p><code>chmod -R 775 /var/www/html/public/uploads</code></p>
+                    <p>Now visit /install on your server to continue upgrade</p>
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>For No SSH Access</strong><br>
+                    <p>If you dont have access to SSH then ftp into your project through filezilla and set 775 permissions to storage and bootstrap (You can set permissions by right clicking the folder and selecting file permissions and make sure to check the box which says Recurse into sub directories) . Now visit /install on your server to continue upgrade</p>
+                </li>
+            </ul>
+
+            <h1>Coming updates ..</h1>
+            <ul class="icons">
+
+                <li>
+                    <i class="icon-ok"></i><strong>User Roles</strong><br>
+                    At present only admin works . Author and Publisher roles wont be working and not of much important
+                    till the future update which may include authors earning through sharing posts and payments .
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong>Payments</strong><br>
+                    Module to handle author payments and invoices
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong> Finance</strong><br>
+                    Calculate your income , pulling live numbers from adsense
+                </li>
+                <li>
+                    <i class="icon-ok"></i><strong> Permissions</strong><br>
+                    Should be able to configure permissions for each user and create custom user roles etc
+                </li>
+
+            </ul>
+
+            <h1>Source and Credits</h1>
+
+            <p>I've used the following frameworks, fonts, icons and scripts as listed. My thanks goes to all the
+                authors!</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-left">Frameworks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="http://laravel.com">Laravel</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-left">Scripts and Plugins</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="http://jquery.com">Jquery</a></td>
+                </tr>
+                <tr>
+                    <td><a href="http://jqueryui.com">JqueryUI</a></td>
+                </tr>
+                <tr>
+                    <td><a href="http://timschlechter.github.io/bootstrap-tagsinput/examples/">Tags</a></td>
+                </tr>
+                <tr>
+                    <td><a href="http://www.eyecon.ro/bootstrap-datepicker">Boostrap Datepicker</a></td>
+                </tr>
+                <tr>
+                    <td><a href="http://malsup.com/jquery/form">Jquery Form</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="author-comment">Once again, thank you so much for purchasing this theme. As I said at the
+                beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but
+                I'll do my best to assist. If you have a more general question relating to the themes on ThemeForest,
+                you might consider visiting the forums and asking your question in the "Item Discussion"
+                section.<br><br>Have a nice day!<br><br><a
+                        href="http://codecanyon.net/user/kodeinfo"><strong>kodeinfo</strong></a></p>
+        </div>
+
+
+        <!-- END Main Content -->
+    </div>
+    <!-- END Container for navigation and content -->
+
+    <!-- Footer -->
+    <footer class="cf">
+        <div id="footer-info">
+            <script>var d = new Date();
+            if (d.getFullYear() === 2013) {
+                document.write('2015');
+            } else {
+                document.write('2013-' + d.getFullYear());
+            }</script> &copy; <strong>KodeInfo Docs</strong> - Crafted with <i class="icon-heart"></i> by <strong><a
+                href="http://codecanyon.net/user/kodeinfo" target="_blank">kodeinfo</a></strong></div>
+
+        <!-- Social Navigation -->
+        <nav id="footer-nav">
+            <ul id="footer-nav-list">
+                <li>
+                    <a href="http://twitter.com/kode_info" target="_blank" data-rel="twitter"
+                       data-info="Follow me on Twitter to stay up to date and download freebies"
+                       class="footer-link-twitter"></a>
+                </li>
+                <li>
+                    <a href="http://facebook.com/kodeinfo" target="_blank" data-rel="facebook"
+                       data-info="Like my facebook page to stay up to date and download freebies"
+                       class="footer-link-facebook"></a>
+                </li>
+                <li>
+                    <a href="http://codecanyon.net/user/kodeinfo" target="_blank" data-rel="contact"
+                       data-info="Feel free to contact me via my themeforest contact form"
+                       class="footer-link-contact"></a>
+                </li>
+                <li>
+                    <a href="http://kodeinfo.com" target="_blank" data-rel="website" data-info="Check out my website"
+                       class="footer-link-website"></a>
+                </li>
+                <li>
+                    <a href="http://codecanyon.net/user/kodeinfo" target="_blank" data-rel="portfolio"
+                       data-info="Check out my portfolio on Themeforest" class="footer-link-portfolio"></a>
+                </li>
+                <li class="footer-info-text"></li>
+            </ul>
+        </nav>
+        <!-- END Social Navigation -->
+    </footer>
+    <!-- END Footer -->
+</div>
+<!-- END Page Container -->
+
+<!-- Scripts -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/vendor/jquery.min.js"%3E%3C/script%3E'));</script>
+
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

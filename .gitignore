@@ -1,0 +1,7 @@
+/public/uploads
+/vendor
+/node_modules
+.env
+
+public/node_modules
+.idea/
